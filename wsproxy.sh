@@ -22,7 +22,7 @@ fun_wsproxy () {
 
     download_wsproxy() {
         echo "${yellow}Downloading WebSocket proxy script...${reset}"
-        wget -O /root/wsproxy.py https://github.com/opiran-club/ssh-websocket/raw/main/wsproxy.py
+        wget -O /root/wsproxy.py https://github.com/PhoenixxZ2023/websocket-premium/raw/main/wsproxy.py
     }
 clear
     # Function to configure the WebSocket proxy
