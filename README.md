@@ -1,9 +1,9 @@
-### WEBSOCKET OVER SSH (SSH WEBSOCKET)
+### WEBSOCKET SOBRE SSH (SSH WEBSOCKET)
 
-#### setup websocket server over ssh via cloudflare CDN
-#### Fully automatic script just answer the question and at the end gives you payload and enjoy
+### configurar servidor websocket sobre ssh via cloudflare CDN
+### Script totalmente automático, basta responder à pergunta e no final lhe dá carga útil e aproveite
+### Sinta-se à vontade para entrar em contato comigo (telegrama ou github)
 
-##### Feel free to contact with me (telegram or github)
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ❗ Requirements
