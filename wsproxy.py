@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # encoding: utf-8
-import socket, threading, thread, select, signal, sys, time, getopt
+import asyncio
+import getopt
+import hashlib
+import socket
+import ssl
+import sys
+import websockets
 
 PASS = ''
 LISTENING_ADDR = '0.0.0.0'
-try:
-   LISTENING_PORT = int(sys.argv[1])
-except:
-   LISTENING_PORT = 80
+LISTENING_PORT = 80
 SSH_PORT = 22  # Default SSH port
 BUFLEN = 4096 * 4
 TIMEOUT = 60
@@ -25,17 +28,14 @@ def hash_password(password):
     # You can use a better hashing algorithm (e.g., bcrypt) for stronger security
     return hashlib.sha256(password.encode()).hexdigest()
 
-class Server(threading.Thread):
+class Server:
     def __init__(self, host, port, ssh_port):
-        threading.Thread.__init__(self)
-        self.running = False
         self.host = host
         self.port = port
         self.ssh_port = ssh_port
         self.threads = []
-        self.threadsLock = threading.Lock()
-        self.logLock = threading.Lock()
-
+        self.threadsLock = asyncio.Lock()
+        self.logLock = asyncio.Lock()
 
     async def handle_connection(self, websocket, path):
         try:
@@ -141,23 +141,39 @@ def parse_args(argv):
         elif opt in ("-s", "--sshport"):
             SSH_PORT = int(arg)
 
-def main(host=LISTENING_ADDR, port=LISTENING_PORT, ssh_port=SSH_PORT):
-    print("\033[0;34m━" * 8, "\033[1;32m PROXY WEBSOCKET", "\033[0;34m━" * 8, "\n")
-    print("\033[1;33mIP:\033[1;32m", LISTENING_ADDR)
-    print("\033[1;33mPORTA:\033[1;32m", str(LISTENING_PORT), "\n")
-    print("\033[0;34m━" * 10, "\033[1;32m────────────ㅤㅤ@TURBONET2023 ㅤㅤ────────────", "\033[0;34m━\033[1;37m" * 11, "\n")
+def print_menu():
+    print("1. Habilitar Proxy WebSocket")
+    print("2. Desabilitar Proxy WebSocket")
+    print("3. Configurar senha do Proxy WebSocket")
+    print("4. Sair")
 
-    server = Server(LISTENING_ADDR, LISTENING_PORT)
-    asyncio.get_event_loop().run_until_complete(
-        websockets.serve(server.handle_connection, LISTENING_ADDR, LISTENING_PORT)
-    )
+def main_menu(server):
+    while True:
+        print_menu()
+        choice = input("Digite sua escolha: ")
 
-    try:
-        asyncio.get_event_loop().run_forever()
-    except KeyboardInterrupt:
-        print('stopping...')
-        sys.exit(0)
+        if choice == "1":
+            asyncio.get_event_loop().run_until_complete(start_server)
+            print("Proxy WebSocket habilitado.")
+        elif choice == "2":
+            print("Desabilitando Proxy WebSocket.")
+            server.close()
+            break
+        elif choice == "3":
+            global PASS
+            new_pass = input("Digite a nova senha: ")
+            PASS = hash_password(new_pass)
+            print("Senha do Proxy WebSocket configurada com sucesso.")
+        elif choice == "4":
+            print("Saindo do programa.")
+            server.close()
+            break
+        else:
+            print("Escolha inválida. Por favor, tente novamente.")
 
 if __name__ == '__main__':
     parse_args(sys.argv[1:])
-    main()
+    server = Server(LISTENING_ADDR, LISTENING_PORT, SSH_PORT)
+    start_server = websockets.serve(server.handle_connection, LISTENING_ADDR, LISTENING_PORT)
+
+    main_menu(server)
