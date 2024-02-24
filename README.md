@@ -15,11 +15,10 @@
 ❗❗ INSTALLATION
 
 ```
-apt update && apt upgrade -y && wget https://raw.githubusercontent.com/opiran-club/ssh-websocket/main/wsproxy.sh && chmod +x wsproxy.sh && ./wsproxy.sh
+apt update && apt upgrade -y && wget https://raw.githubusercontent.com/PhoenixxZ2023/websocket-premium/main/wsproxy.sh && chmod +x wsproxy.sh && ./wsproxy.sh
 ```
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-#### Written by OPIran
-TELEGRAM CHANNEL: https://t.me/OPIranv2rayproxy
+#### Written by TURBONET-VPN
 
-TELEGRAM GROUP: https://t.me/OPIranCluB
+TELEGRAM: https://t.me/TURBONET2023
