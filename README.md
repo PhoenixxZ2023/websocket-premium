@@ -6,13 +6,13 @@
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-❗ Requirements
-- run with root previllage
-- its written for UBUNTU and CENTOS
-- no any requirements, they will be install
+❗ Requisitos
+- execute com pré-vila raiz
+- foi escrito para UBUNTU e CENTOS
+- sem quaisquer requisitos, eles serão instalados
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-❗❗ INSTALLATION
+❗❗ LINK DE INSTALAÇÃO
 
 ```
 apt update && apt upgrade -y && wget https://raw.githubusercontent.com/PhoenixxZ2023/websocket-premium/main/wsproxy.sh && chmod +x wsproxy.sh && ./wsproxy.sh
